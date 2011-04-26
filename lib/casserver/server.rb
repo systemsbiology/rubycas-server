@@ -8,7 +8,7 @@ $LOG ||= Logger.new(STDOUT)
 
 module CASServer
   class Server < Sinatra::Base
-    CONFIG_FILE = ENV['CONFIG_FILE'] || "/etc/rubycas-server/config.yml"
+    CONFIG_FILE = ENV['CONFIG_FILE'] || File.dirname(__FILE__) + "/../../config/config.yml"
     
     include CASServer::CAS # CAS protocol helpers
     include Localization
@@ -289,7 +289,7 @@ module CASServer
     # 2.1 :: Login
 
     # 2.1.1
-    get "#{uri_path}/login" do
+    get "/login" do
       CASServer::Utils::log_controller_action(self.class, params)
 
       # make sure there's no caching
@@ -373,7 +373,7 @@ module CASServer
 
     
     # 2.2
-    post "#{uri_path}/login" do
+    post "/login" do
       Utils::log_controller_action(self.class, params)
       
       # 2.2.1 (optional)
@@ -478,7 +478,7 @@ module CASServer
       render :erb, :login
     end
 
-    get /^#{uri_path}\/?$/ do
+    get "/" do
       redirect "#{config['uri_path']}/login", 303
     end
 
@@ -486,7 +486,7 @@ module CASServer
     # 2.3
 
     # 2.3.1
-    get "#{uri_path}/logout" do
+    get "/logout" do
       CASServer::Utils::log_controller_action(self.class, params)
 
       # The behaviour here is somewhat non-standard. Rather than showing just a blank
@@ -549,7 +549,7 @@ module CASServer
 		# 2.4
 
 		# 2.4.1
-		get "#{uri_path}/validate" do
+		get "/validate" do
 			CASServer::Utils::log_controller_action(self.class, params)
 			
 			# required
@@ -572,7 +572,7 @@ module CASServer
     # 2.5
 
     # 2.5.1
-    get "#{uri_path}/serviceValidate" do
+    get "/serviceValidate" do
 			CASServer::Utils::log_controller_action(self.class, params)
 
 			# required
@@ -602,7 +602,7 @@ module CASServer
     # 2.6
 
     # 2.6.1
-    get "#{uri_path}/proxyValidate" do
+    get "/proxyValidate" do
       CASServer::Utils::log_controller_action(self.class, params)
 
       # required
@@ -640,7 +640,7 @@ module CASServer
 
 
     # 2.7
-    get "#{uri_path}/proxy" do
+    get "/proxy" do
       CASServer::Utils::log_controller_action(self.class, params)
 
       # required
