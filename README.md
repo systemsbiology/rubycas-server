@@ -1,4 +1,4 @@
-# RubyCAS-Server
+# RubyCAS-Server ![http://stillmaintained.com/gunark/rubycas-server](http://stillmaintained.com/gunark/rubycas-server.png)
 
 ## Copyright
 
